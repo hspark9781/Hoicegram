@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="com.hsp.hoicegram.user.dao.UserDAO">
+  
+  	<insert id="insertUser" parameterType="map">
+  		INSERT INTO
+  			`user`
+  		(
+  			`userName`
+  			, `email`
+  			, `phoneNumber`
+  			, `nickname`
+  			, `password`
+  			, `createdAt`
+  			, `updatedAt`
+  		)
+  		VALUE
+  		(
+  			#{userName}
+  			, #{email}
+  			, #{phoneNumber}
+  			, #{nickname}
+  			, #{password}
+  			, now()
+  			, now()
+  		)
+  		
+  	
+  	</insert>
+  	
+  	<select id="selectEmail" parameterType="string" resultType="int">
+  		SELECT count(*) 
+  		FROM 
+  			`user`
+  		WHERE
+  			`email` = #{email}
+  	</select>
+  	
+  	<select id="selectNickname" parameterType="string" resultType="int">
+  		SELECT count(*) 
+  		FROM 
+  			`user`
+  		WHERE
+  			`nickname` = #{nickname}
+  	</select>
+  	
+  	<select id="selectPhoneNumber" parameterType="string" resultType="int">
+  		SELECT count(*) 
+  		FROM 
+  			`user`
+  		WHERE
+  			`phoneNumber` = #{phoneNumber}
+  	</select>
+  	
+  	
+  
+  
+  </mapper>
