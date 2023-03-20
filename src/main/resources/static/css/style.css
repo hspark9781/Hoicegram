@@ -5,13 +5,16 @@
 	margin:auto;
 }
 
-.join-box {
-	width:400px;
-}
 
 .join {
-	height:600px;
+	border-radius: 10px;	
 }
+
+.join-box {
+	width:400px;
+	 
+}
+
 
 .box {
 	width:300px;
@@ -19,8 +22,9 @@
 
 .signin {
 	height:70px;
+	border-radius: 10px;
 }
 
-footer {
+footer {	
 	height:60px;
 }

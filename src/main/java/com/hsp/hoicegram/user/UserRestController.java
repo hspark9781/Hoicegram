@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,49 +44,47 @@ public class UserRestController {
 	
 	
 	@PostMapping("/email_duplicate")
-	public Map<String, String> emailDuplicate(@RequestParam("email") String email) {
+	public Map<String, Boolean> emailDuplicate(@RequestParam("email") String email) {
 		
-		int count = userBO.emailDuplicate(email);
+		Map<String, Boolean> resultMap = new HashMap<>();
 		
-		Map<String, String> resultMap = new HashMap<>();
-		
-		if(count == 0) {
-			resultMap.put("result", "false");
+		if(userBO.emailDuplicate(email)) {
+			resultMap.put("result", true);
 		} else {
-			resultMap.put("result", "true");
+			resultMap.put("result", false);
 		}
 		
 		return resultMap;
 		
+//		 resultMap.put("result", userBO.nicknameDuplicate(email));
+//		 return resultMap;	 
+		
 	}
 	
-	@PostMapping("/nickname_duplicate")
-	public Map<String, String> nicknameDuplicate(@RequestParam("nickname") String nickname) {
+	@GetMapping("/nickname_duplicate")
+	public Map<String, Boolean> nicknameDuplicate(@RequestParam("nickname") String nickname) {
 		
-		int count = userBO.nicknameDuplicate(nickname);
 		
-		Map<String, String> resultMap = new HashMap<>();
+		Map<String, Boolean> resultMap = new HashMap<>();
 		
-		if(count == 0) {
-			resultMap.put("result", "false");
+		if(userBO.nicknameDuplicate(nickname)) {
+			resultMap.put("result", true);
 		} else {
-			resultMap.put("result", "true");
+			resultMap.put("result", false);
 		}
 		
 		return resultMap;
 		
 	}
 	@PostMapping("/phoneNumber_duplicate")
-	public Map<String, String> phoneNumberDuplicate(@RequestParam("phoneNumber") String phoneNumber) {
+	public Map<String, Boolean> phoneNumberDuplicate(@RequestParam("phoneNumber") String phoneNumber) {
 		
-		int count = userBO.phoneNumberDuplicate(phoneNumber);
+		Map<String, Boolean> resultMap = new HashMap<>();
 		
-		Map<String, String> resultMap = new HashMap<>();
-		
-		if(count == 0) {
-			resultMap.put("result", "false");
+		if(userBO.phoneNumberDuplicate(phoneNumber)) {
+			resultMap.put("result", true);
 		} else {
-			resultMap.put("result", "true");
+			resultMap.put("result", false);
 		}
 		
 		return resultMap;

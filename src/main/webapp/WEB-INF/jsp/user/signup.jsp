@@ -25,8 +25,7 @@
 			<div class="join-box">
 				<div class="join border border-sencondary d-flex justify-content-center align-items-center">
 					<div class="box my-4">
-						<div class="text-center Italianno display-4">hoicegram</div>
-						<div class="pt-2"><hr></div>
+						<div class="text-center Italianno display-2">hoicegram</div>
 						<div class="d-flex mt-5">
 							<input type="text" placeholder="아이디 : email" id="emailInput" class="form-control col-9"> <button class="btn btn-sm btn-primary ml-2" id="emailCheck">중복확인</button>
 						</div>
@@ -35,7 +34,7 @@
 							<input type="text" placeholder="사용자 이름" id="nicknameInput" class="form-control col-9"> <button class="btn btn-sm btn-primary ml-2" id="nicknameCheck">중복확인</button>
 						</div>
 						<div class="d-flex mt-4">
-							<input type="text" placeholder="휴대폰 번호" id="phoneNumberInput" class="form-control col-9"> <button class="btn btn-sm btn-primary ml-2" id="phoneNumberCheck">중복확인</button>
+							<input type="text" placeholder="휴대폰 번호 : - 포함" id="phoneNumberInput" class="form-control col-9"> <button class="btn btn-sm btn-primary ml-2" id="phoneNumberCheck">중복확인</button>
 						</div>
 						<input type="password" placeholder="비밀번호" id="passwordInput" class="form-control mt-4">
 						<input type="password" placeholder="비밀번호 확인" id="passwordCheck" class="form-control mt-4">
@@ -44,7 +43,7 @@
 				</div>
 				
 				<div class="signin mt-3 d-flex  align-items-center justify-content-center border border-sencondary">
-					<h5 class="pt-2">계정이 있으신가요? <a href="#">로그인</a></h5> 
+					<h5 class="pt-2">계정이 있으신가요? <a href="/user/signin/view">로그인</a></h5> 
 				</div>
 			</div>
 		</section>
@@ -60,15 +59,31 @@
 		var phoneNumberCheck = false;
 		var phoneNumberDuplicate = true;
 		
+		
+		$("#emailinput").on("input", function()) {
+			emailCheck = false;
+			emailDuplicate = true;
+		};
+		
+		$("#nicknameInput").on("input", function()) {
+			nicknameCheck = false;
+			nicknameDuplicate = true;
+		};
+		
+		$("#phoneNumberInput").on("input", function() {
+			phoneNumberCheck = false;
+			phoneNumberDuplicate = true;
+		});
+		
 		$("#nicknameCheck").on("click", function() {
 			
 			let nickname = $("#nicknameInput").val();
 			$.ajax({
-				type:"post"
+				type:"get"
 				, url:"/user/nickname_duplicate"
 				, data:{"nickname":nickname}
 				, success:function(data) {
-					if(data.result == "false") {
+					if(data.result == false) {
 						alert("사용 가능한 이름 입니다.");
 						nicknameDuplicate = false;
 						nicknameCheck = true;
@@ -91,7 +106,7 @@
 				, url:"/user/email_duplicate"
 				, data:{"email":email}
 				, success:function(data) {
-					if(data.result == "false") {
+					if(!data.result) {
 						alert("사용 가능한 이메일 입니다.");
 						emailDuplicate = false;
 						emailCheck = true;
@@ -115,7 +130,7 @@
 				, url:"/user/phoneNumber_duplicate"
 				, data:{"phoneNumber":phoneNumber}
 				, success:function(data) {
-					if(data.result == "false") {
+					if(data.result == false) {
 						alert("사용 가능한 번호입니다.");
 						phoneNumberDuplicate = false;
 						phoneNumberCheck = true;
@@ -189,13 +204,13 @@
 				return;
 			}
 			
-			if(phoneNumberCheck == false) {
-				alert("휴대폰 번호 중복 확인을 진행해 주세요.");
+			if(nicknameDuplicate == true) {
+				alert("사용자 이름이 중복되었습니다.");
 				return;
 			}
 			
-			if(nicknameDuplicate == true) {
-				alert("사용자 이름이 중복되었습니다.");
+			if(phoneNumberCheck == false) {
+				alert("휴대폰 번호 중복 확인을 진행해 주세요.");
 				return;
 			}
 			

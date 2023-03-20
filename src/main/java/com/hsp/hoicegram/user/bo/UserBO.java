@@ -24,20 +24,39 @@ public class UserBO {
 		String encryptPassword = EncryptService.md5(password);
 		
 		return userDAO.insertUser(email, userName, nickname, phoneNumber, encryptPassword);
+	}
 		
+	
+	
+	public boolean emailDuplicate(String email) {
+		int count =  userDAO.selectEmail(email);
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
-	
-	public int emailDuplicate(String email) {
-		return userDAO.selectEmail(email);
+	public boolean nicknameDuplicate(String nickname) {
+		int count = userDAO.selectNickname(nickname);
+		
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
-	public int nicknameDuplicate(String nickname) {
-		return userDAO.selectNickname(nickname);
-	}
-	
-	public int phoneNumberDuplicate(String phoneNumber) {
-		return userDAO.selectPhoneNumber(phoneNumber);
+	public boolean phoneNumberDuplicate(String phoneNumber) {
+		int count = userDAO.selectPhoneNumber(phoneNumber);
+		
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
+		
+		// userDAO.selectPhoneNumber(phoneNumber) != 0; => 이해 하면 쓰기
 	}
 
 }
