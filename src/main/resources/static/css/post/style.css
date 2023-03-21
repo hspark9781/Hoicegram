@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+#wrap {
+	width:600px;
+	margin:auto;
+}
+
+header {
+	height:70px;
+}
+
+.contents {
+	height:730px;
+}
+
+.contents > .img {
+	height:350px;
+}
+
+.contents > .like {
+	height:50px;
+}
+
+.contents > .comment {
+	height:300px;
+}
+
+footer {
+	height:70px;
+}

@@ -58,6 +58,25 @@
   	</select>
   	
   	
+  	<select id="selectUser" parameterType="map" resultType="com.hsp.hoicegram.user.model.User">
+  		SELECT
+  			 `id`
+  			, `userName`
+  			, `email`
+  			, `phoneNumber`
+  			, `nickname`
+  			, `password`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM 
+  			`user`
+  		WHERE
+  			`email` = #{email}
+  			AND `password` = #{password}
+  		
+  	</select>
+  	
+  	
   
   
   </mapper>

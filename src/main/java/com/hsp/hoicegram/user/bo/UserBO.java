@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.hsp.hoicegram.common.EncryptService;
 import com.hsp.hoicegram.user.dao.UserDAO;
+import com.hsp.hoicegram.user.model.User;
 
 @Service
 public class UserBO {
@@ -58,5 +59,12 @@ public class UserBO {
 		
 		// userDAO.selectPhoneNumber(phoneNumber) != 0; => 이해 하면 쓰기
 	}
+	
+	
+	public User getUser(String email, String password) {
+		String encryptPassword = EncryptService.md5(password);
+		return userDAO.selectUser(email, encryptPassword);
+	}
+		
 
 }

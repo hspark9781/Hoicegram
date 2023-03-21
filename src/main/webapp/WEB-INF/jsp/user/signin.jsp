@@ -27,11 +27,11 @@
 					<div class="box my-4">
 						<div class="text-center Italianno display-2">hoicegram</div>
 						<div class="pt-2"><hr></div>
-						<div class="d-flex mt-5">
-							<input type="text" placeholder="아이디 : email" id="emailInput" class="form-control">
-						</div>
-						<input type="password" placeholder="비밀번호" id="passwordInput" class="form-control mt-4">
-						<button type="button" id="joinBtn" class="btn btn-primary btn-block mt-4">로그인</button>
+						<form id="loginForm">
+							<input type="text" placeholder="아이디 : email" id="emailInput" class="form-control mt-5"">
+							<input type="password" placeholder="비밀번호" id="passwordInput" class="form-control mt-4">
+							<button type="submit" id="loginBtn" class="btn btn-primary btn-block mt-4">로그인</button>
+						</form>
 					</div>
 				</div>
 				
@@ -42,6 +42,47 @@
 		</section>
 		<c:import url="/WEB-INF/jsp/user/include/footer.jsp"/>
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			
+			$("#loginForm").on("submit", function(e) {
+				
+				// 이벤가 가진 고유 기능과 속성을 취소한다.
+				e.preventDefault();
+				
+				let email = $("#emailInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(email == "") {
+					alert("이메일을 입력하세요");
+					return;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/signin"
+					, data:{"email":email, "password":password}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href="/post/list/view";
+						} else {
+							alert("아이디와 비밀번호를 확인해 주세요");
+						}
+					}
+					, error:function() {
+						alert("로그인 에러");
+					}
+				});	
+			});
+		});
+	
+	</script>
 
 </body>
 </html>

@@ -60,15 +60,15 @@
 		var phoneNumberDuplicate = true;
 		
 		
-		$("#emailinput").on("input", function()) {
+		$("#emailinput").on("input", function() {
 			emailCheck = false;
 			emailDuplicate = true;
-		};
+		});
 		
-		$("#nicknameInput").on("input", function()) {
+		$("#nicknameInput").on("input", function() {
 			nicknameCheck = false;
 			nicknameDuplicate = true;
-		};
+		});
 		
 		$("#phoneNumberInput").on("input", function() {
 			phoneNumberCheck = false;
