@@ -70,7 +70,7 @@
 					, data:{"email":email, "password":password}
 					, success:function(data) {
 						if(data.result == "success") {
-							location.href="/post/list/view";
+							location.href="/post/timeline/view";
 						} else {
 							alert("아이디와 비밀번호를 확인해 주세요");
 						}

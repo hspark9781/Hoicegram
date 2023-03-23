@@ -8,9 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/post")
 public class PostController {
 
-	@GetMapping("/list/view")
+	@GetMapping("/timeline/view")
 	public String list() {
 		return "post/list";
+	}
+	
+	@GetMapping("/create/view")
+	public String create() {
+		return "post/create";
+	}
+	
+	@GetMapping("/detail/view")
+	public String detail() {
+		return "post/detail";
 	}
 	
 }
