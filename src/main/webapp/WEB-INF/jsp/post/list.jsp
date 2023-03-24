@@ -6,10 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>hoicegram-게시판</title>
-<style>
-	@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
-	.Italianno { font-family: Italianno; }
-</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
@@ -25,7 +21,7 @@
 		<header class="d-flex justify-content-between align-items-end">
 			<c:if test="${not empty userId }">
 			<div class="ml-3">
-					<h4 class=" font-weight-light ml-1">${nickname }</h4>
+					<h4 class=" font-weight-light ml-1" id="userId" data-user-id="${userId }">${nickname }</h4>
 			</div>
 			<div class="mr-1"> <a href="/user/signout" class="btn btn-dark text-light">logout</a> </div>
 			</c:if>
@@ -35,11 +31,7 @@
 		<div class="card-box border rounded mt-3">
 			<div class="d-flex justify-content-between align-items-end">
 				<div class="ml-3">
-					<c:forEach var="user" items="${userList }">
-					<c:if test="${user.id eq post.userId }">
-					<h4 class=" font-weight-light ml-1">${user.nickname }</h4>
-					</c:if>
-					</c:forEach>
+					<h4 class=" font-weight-light ml-1">${post.nickname }</h4>
 				</div>
 				<div class="menu mt-3 mr-2">
 					<div class="dropdown">
@@ -56,18 +48,18 @@
 			</div>
 			<c:if test="${not empty post.imagePath }">
 			<div class="img d-flex justify-content-center align-items-center mt-3">
-				<img alt="도시사진" width="600px" src="${post.imagePath }">
+				<img alt="도시사진" width="100%" src="${post.imagePath }">
 			</div>
 			</c:if>
-			<div class="content-box mt-4 mb-4 d-flex">
-				<div class="nickname font-weight-bold">${post.userId }</div>
+			<div class="content-box mt-4 mb-4 d-flex ml-1">
+				<div class="nickname font-weight-bold">${post.nickname }</div>
 				<div class="content ml-2"> ${post.content }</div>
 			</div>
-			<div class="like d-flex align-items-center">
-				<i class="bi bi-heart"></i>
+			<div class="like d-flex align-items-center ml-1">
+				<button type="button" class="border-0" id="likeBtn" data-post-id="${post.id }"><i class="bi bi-heart" ></i></button> 
 				<span class="font-weight-bold ml-2">좋아요 </span> <span class="ml-2">23개</span>
 			</div>
-			<div class="comment mt-4">
+			<div class="comment mt-4 ml-1">
 				<div class="comment-box">
 					<div class="d-flex mt-2">
 						<div class="font-weight-bold">hspaaaaar_k</div><div class="ml-3">곧 보자구~~</div>
@@ -91,6 +83,31 @@
 			<div class="text-center mt-3">CopyRight</div>
 		</footer>		
 	</div>
+	
+	
+	<script>
+		$(document).ready(function() {
+			$("#likeBtn").on("click", function() {
+				let postId = $(this).data("post-id");
+				let userId = $("#userId").data("user-id");
+				$.ajax({
+					type:"get"
+					, url:"/like/add"
+					, data:{"postId":postId, "userId":userId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 에러");
+					}
+				});
+			});
+		});
+	</script>
 			   
 		
 			

@@ -32,7 +32,7 @@ public interface UserDAO {
 			@Param("email") String email
 			, @Param("password") String password);
 	
-	public List<User> selectNicknameList();
+	public User selectUserById(@Param("id") int id);
 	
 	
 }

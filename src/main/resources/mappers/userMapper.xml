@@ -76,12 +76,21 @@
   		
   	</select>
   	
-  	<select id="selectNicknameList" resultType="com.hsp.hoicegram.user.model.User">
+  	<select id="selectUserById" parameterType="int" resultType="com.hsp.hoicegram.user.model.User">
   		SELECT
   			 `id`
   			, `userName`
+  			, `email`
+  			, `phoneNumber`
+  			, `nickname`
+  			, `password`
+  			, `createdAt`
+  			, `updatedAt`
   		FROM 
-  			`user` 		
+  			`user`
+  		WHERE
+  			`id` = #{id}
+  		
   	</select>
   </mapper>
 

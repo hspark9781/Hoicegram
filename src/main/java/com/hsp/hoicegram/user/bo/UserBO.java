@@ -69,8 +69,8 @@ public class UserBO {
 	}
 	
 	
-	public List<User> getNicknameList() {
-		return userDAO.selectNicknameList();
+	public User getUserById(int userId) {
+		return userDAO.selectUserById(userId);
 	}
 		
 
