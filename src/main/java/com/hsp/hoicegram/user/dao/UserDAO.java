@@ -1,5 +1,7 @@
 package com.hsp.hoicegram.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +31,8 @@ public interface UserDAO {
 	public User selectUser(
 			@Param("email") String email
 			, @Param("password") String password);
+	
+	public List<User> selectNicknameList();
 	
 	
 }

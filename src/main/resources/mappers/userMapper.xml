@@ -76,7 +76,16 @@
   		
   	</select>
   	
+  	<select id="selectNicknameList" resultType="com.hsp.hoicegram.user.model.User">
+  		SELECT
+  			 `id`
+  			, `userName`
+  		FROM 
+  			`user` 		
+  	</select>
+  </mapper>
+
+  	
   	
   
   
-  </mapper>

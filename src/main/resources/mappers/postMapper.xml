@@ -25,5 +25,20 @@
   			, now()
   		)
   	</insert>
+  	
+  	<select id="selectPostList" resultType="com.hsp.hoicegram.post.model.Post">
+  		SELECT 
+  			`id`
+  			, `userId`
+  			, `content`
+  			, `imagePath`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM 
+  			`post`
+  	</select>
+  	
+  	
+  	
   
   </mapper>

@@ -9,17 +9,7 @@ header {
 	height:70px;
 }
 
-.contents {
-	height:730px;
-}
 
-.contents > .img {
-	height:350px;
-}
-
-.contents > .like {
-	height:50px;
-}
 
 footer {
 	height:70px;

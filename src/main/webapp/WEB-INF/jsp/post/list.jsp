@@ -23,19 +23,24 @@
 
 	<div id="wrap">
 		<header class="d-flex justify-content-between align-items-end">
-			<h1 class="font-weight-light Italianno">hoicegram</h1>
 			<c:if test="${not empty userId }">
+			<div class="ml-3">
+					<h4 class=" font-weight-light ml-1">${nickname }</h4>
+			</div>
 			<div class="mr-1"> <a href="/user/signout" class="btn btn-dark text-light">logout</a> </div>
 			</c:if>
 		</header>					
 		<section class="contents">
+		<c:forEach var="post" items="${postList }">
 		<div class="card-box border rounded mt-3">
 			<div class="d-flex justify-content-between align-items-end">
-				<c:if test="${not empty userId }">
 				<div class="ml-3">
-					<h4 class=" font-weight-light ml-1">${nickname }</h4>
+					<c:forEach var="user" items="${userList }">
+					<c:if test="${user.id eq post.userId }">
+					<h4 class=" font-weight-light ml-1">${user.nickname }</h4>
+					</c:if>
+					</c:forEach>
 				</div>
-				</c:if>
 				<div class="menu mt-3 mr-2">
 					<div class="dropdown">
 					  <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,11 +54,14 @@
 					</div>
 				</div>
 			</div>
+			<c:if test="${not empty post.imagePath }">
 			<div class="img d-flex justify-content-center align-items-center mt-3">
-				<img alt="도시사진" width="600px" src="https://cdn.pixabay.com/photo/2023/03/13/04/25/buildings-7848348_960_720.jpg">
+				<img alt="도시사진" width="600px" src="${post.imagePath }">
 			</div>
-			<div class="mt-4 mb-4">
-				시티뷰 지렸다..
+			</c:if>
+			<div class="content-box mt-4 mb-4 d-flex">
+				<div class="nickname font-weight-bold">${post.userId }</div>
+				<div class="content ml-2"> ${post.content }</div>
 			</div>
 			<div class="like d-flex align-items-center">
 				<i class="bi bi-heart"></i>
@@ -76,7 +84,9 @@
 				</div>
 			</div>
 		</div>
+		</c:forEach>
 		</section>
+		
 		<footer>
 			<div class="text-center mt-3">CopyRight</div>
 		</footer>		

@@ -1,5 +1,7 @@
 package com.hsp.hoicegram.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +66,11 @@ public class UserBO {
 	public User getUser(String email, String password) {
 		String encryptPassword = EncryptService.md5(password);
 		return userDAO.selectUser(email, encryptPassword);
+	}
+	
+	
+	public List<User> getNicknameList() {
+		return userDAO.selectNicknameList();
 	}
 		
 

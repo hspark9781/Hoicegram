@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagerService {
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\web_hsp\\spring_project\\upload\\hoicegram\\image"; 
-	// 
+	public static final String FILE_UPLOAD_PATH = "/Users/hsp9781/web_hsp/spring_project/upload/hoicegram/image"; 
+	// "D:\\web_hsp\\spring_project\\upload\\hoicegram\\image"
 	// "/Users/hsp9781/web_hsp/spring_project/upload/memo/image"
 	
 	//파일 저장 -> 경로 생성
