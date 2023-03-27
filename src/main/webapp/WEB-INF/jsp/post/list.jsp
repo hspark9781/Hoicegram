@@ -56,8 +56,15 @@
 				<div class="content ml-2"> ${post.content }</div>
 			</div>
 			<div class="like d-flex align-items-center ml-1">
-				<button type="button" class="border-0" id="likeBtn" data-post-id="${post.id }"><i class="bi bi-heart" ></i></button> 
-				<span class="font-weight-bold ml-2">좋아요 </span> <span class="ml-2">23개</span>
+				<c:choose>
+					<c:when test="${post.Like }">
+						<i class="bi bi-heart-fill"></i>
+					</c:when>
+					<c:otherwise>
+						<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
+					</c:otherwise>
+				</c:choose>
+				<span class="font-weight-bold ml-2">좋아요 </span> <span class="ml-2">${post.likeCount }개</span>
 			</div>
 			<div class="comment mt-4 ml-1">
 				<div class="comment-box">
@@ -86,14 +93,15 @@
 	
 	
 	<script>
-		$(document).ready(function() {
-			$("#likeBtn").on("click", function() {
+		$(document).ready(function() {			 
+			
+			$(".like-icon").on("click", function() {
 				let postId = $(this).data("post-id");
-				let userId = $("#userId").data("user-id");
+				
 				$.ajax({
 					type:"get"
-					, url:"/like/add"
-					, data:{"postId":postId, "userId":userId}
+					, url:"/post/like"
+					, data:{"postId":postId}
 					, success:function(data) {
 						if(data.result == "success") {
 							location.reload();

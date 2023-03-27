@@ -13,7 +13,9 @@ header {
 	font-size:40px;
 }
 
-
+.unlike-icon {
+	color:red;
+}
 
 footer {
 	height:70px;

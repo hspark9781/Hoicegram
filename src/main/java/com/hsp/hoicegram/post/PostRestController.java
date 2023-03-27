@@ -42,9 +42,10 @@ public class PostRestController {
 		return resultMap;
 	}
 	
-	// like
-	// 다른 사람들이 버튼을 누르면 해당 게시글 아이디의 count를 합친다.
-	// userId와 postId가 같을때 해당하는 post객체와 user객체를 가져온다.
+	
+	
+	
+	
 			
 	
 }

@@ -5,10 +5,27 @@ public class PostDetail {
 	private int id;
 	private int userId;
 	private String nickname;
+	private int likeCount;
+	private boolean isLike;
 	private String content;
 	private String imagePath;
 	
 	
+	
+	
+
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
 	public int getId() {
 		return id;
 	}

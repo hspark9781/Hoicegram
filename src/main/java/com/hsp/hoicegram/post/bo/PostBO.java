@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hsp.hoicegram.common.FileManagerService;
 import com.hsp.hoicegram.post.dao.PostDAO;
+import com.hsp.hoicegram.post.like.bo.LikeBO;
 import com.hsp.hoicegram.post.model.Post;
 import com.hsp.hoicegram.post.model.PostDetail;
 import com.hsp.hoicegram.user.bo.UserBO;
@@ -23,12 +24,15 @@ public class PostBO {
 	@Autowired //싱글턴 패턴
 	private UserBO userBO;
 	
+	@Autowired
+	private LikeBO likeBO;
+	
 	public int addPost(int userId, String content, MultipartFile file) {
 		String imagePath = FileManagerService.saveFile(userId, file);
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
-	public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int userId) {
 		
 		// controller에서 원하는(jsp에서 사용할 데이터 형태를 만들어준다. BO의 역할)
 		List<Post> postList = postDAO.selectPostList();
@@ -38,6 +42,8 @@ public class PostBO {
 		for(Post post:postList) {
 			
 			User user = userBO.getUserById(post.getUserId());
+			int likeCount = likeBO.getLikeCount(post.getId());
+			boolean isLike = likeBO.isLike(userId, post.getId());
 			
 			PostDetail postDetail = new PostDetail();
 			
@@ -46,13 +52,16 @@ public class PostBO {
 			postDetail.setImagePath(post.getImagePath());
 			postDetail.setUserId(post.getUserId());
 			postDetail.setNickname(user.getNickname());
+			postDetail.setLikeCount(likeCount);
+			postDetail.setLike(isLike);
 			
 			postDetailList.add(postDetail);
 		}
 		
 		return postDetailList;
-			
-			
+		
+		
 	}
+			
 
 }

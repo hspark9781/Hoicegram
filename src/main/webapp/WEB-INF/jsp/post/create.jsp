@@ -32,7 +32,7 @@
 			  </button>
 			  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 			    <a class="dropdown-item" href="/post/detail/view">게시물 수정</a>
-			    <a class="dropdown-item" href="/post/timeline/view">타임라인</a>
+			    <a class="dropdown-item" href="/post/timeline/view">Timeline</a>
 			  </div>
 			</div>
 		</div>			
