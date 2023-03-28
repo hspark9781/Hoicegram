@@ -14,21 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hsp.hoicegram.post.comment.bo.CommentBO;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/post/comment")
 public class CommentRestController {
 	
 	@Autowired
 	private CommentBO commentBO;
 	
-	@PostMapping("/comment")
-	public Map<String, String> addComment(
-			@RequestParam("text") String text
-			, @RequestParam("postId") int postId
+	@PostMapping("/create")
+	public Map<String, String> createComment(
+			@RequestParam("postId") int postId
+			, @RequestParam("content") String content
 			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
-		
-		int count = commentBO.addComment(userId, postId, text);
+		int count = commentBO.addComment(userId, postId, content);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

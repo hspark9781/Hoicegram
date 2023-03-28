@@ -21,13 +21,25 @@
   	(
   		#{userId}
   		, #{postId}
-  		, #{text}
+  		, #{content}
   		, now()
   		, now()
   	)
+  </insert>
+  
+  <select id="selectComment" parameterType="map" resultType="com.hsp.hoicegram.post.comment.model.Comment">
+  	SELECT 
+  		`content`
+  		, `createdAt`
+  		, `updatedAt`
+  	FROM
+  		`comment`
+  	WHERE
+  		`postId` = #{postId}
+  		AND `userId` = #{userId}
+  </select>
   	
   
-  </insert>
   
   
   </mapper>

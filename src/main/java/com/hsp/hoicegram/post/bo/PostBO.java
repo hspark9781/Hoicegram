@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hsp.hoicegram.common.FileManagerService;
+import com.hsp.hoicegram.post.comment.bo.CommentBO;
+import com.hsp.hoicegram.post.comment.model.Comment;
 import com.hsp.hoicegram.post.dao.PostDAO;
 import com.hsp.hoicegram.post.like.bo.LikeBO;
 import com.hsp.hoicegram.post.model.Post;
@@ -27,6 +29,9 @@ public class PostBO {
 	@Autowired
 	private LikeBO likeBO;
 	
+	@Autowired
+	private CommentBO commentBO;
+	
 	public int addPost(int userId, String content, MultipartFile file) {
 		String imagePath = FileManagerService.saveFile(userId, file);
 		return postDAO.insertPost(userId, content, imagePath);
@@ -44,6 +49,7 @@ public class PostBO {
 			User user = userBO.getUserById(post.getUserId());
 			int likeCount = likeBO.getLikeCount(post.getId());
 			boolean isLike = likeBO.isLike(userId, post.getId());
+			Comment comment = commentBO.getComment(userId, post.getId());
 			
 			PostDetail postDetail = new PostDetail();
 			
@@ -54,6 +60,7 @@ public class PostBO {
 			postDetail.setNickname(user.getNickname());
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
+			postDetail.setContent(comment.getContent());
 			
 			postDetailList.add(postDetail);
 		}

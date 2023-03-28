@@ -58,7 +58,7 @@
 			<div class="like d-flex align-items-center ml-1">
 				<c:choose>
 					<c:when test="${post.like }">
-						<i class="bi bi-heart-fill"></i>
+						<i class="bi bi-heart-fill text-danger unlike-icon" data-post-id="${post.id }"></i>
 					</c:when>
 					<c:otherwise>
 						<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
@@ -66,20 +66,20 @@
 				</c:choose>
 				<span class="font-weight-bold ml-2">좋아요 </span> <span class="ml-2">${post.likeCount }개</span>
 			</div>
-			<div class="comment mt-4 ml-1">
-				<div class="comment-box">
+			<div class="comment mt-4 ">
+				<div class="comment-box ml-1">
 					<div class="d-flex mt-2">
-						<div class="font-weight-bold">hspaaaaar_k</div><div class="ml-3">곧 보자구~~</div>
+						<div class="font-weight-bold">${post.nickname }</div><div class="ml-3">${post.comment }</div>
 					</div>
 					<div class="d-flex mt-2">
 						<div class="font-weight-bold">dabinnn0415</div><div class="ml-3">어딩ㅁ?</div>
 					</div>
 				</div>	
 				<div class="input-group mt-3">
-					  <input type="text" class="form-control col-5">
-					  <div class="input-group-append">
-					  <button class="btn btn-secondary" type="button">게시</button>
-					</div>
+					  <input type="text" class="form-control col-5" id="commentInput${post.id }">
+					 <div class="input-group-append">
+					  <button class="btn btn-secondary comment-btn" data-post-id="${post.id }" type="button">게시</button>
+					 </div>
 				</div>
 			</div>
 		</div>
@@ -93,7 +93,58 @@
 	
 	
 	<script>
-		$(document).ready(function() {			 
+		$(document).ready(function() {	
+			
+			$(".comment-btn").on("click", function() {
+				let postId = $(this).data("post-id");
+				
+				// 버튼에 매칭된 input태그를 객체화 시키기
+				// 1. 버튼 바로 앞 태그를 객체화 한다.
+				// let comment = $(this).prev().val(); 내 태그에서는 바로 앞에 있지 않다.
+				
+				// 2. id에 post.id값
+				let comment = $("#commentInput" + postId).val();
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/comment/create"
+					, data:{"postId":postId, "content":comment}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글쓰기 실패");
+						}
+					}
+					, error:function() {
+						alert("댓글쓰기 에러");
+					}
+				});
+				
+			});
+				
+				
+				
+							
+			$(".unlike-icon").on("click", function() {
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/unlike"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 취소 에러");
+					}
+				});
+			});
 			
 			$(".like-icon").on("click", function() {
 				let postId = $(this).data("post-id");

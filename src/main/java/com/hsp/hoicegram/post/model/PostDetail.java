@@ -12,8 +12,6 @@ public class PostDetail {
 	private String imagePath;
 	
 	
-	
-	
 
 	public String getComment() {
 		return comment;
