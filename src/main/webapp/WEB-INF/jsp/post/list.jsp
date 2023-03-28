@@ -57,7 +57,7 @@
 			</div>
 			<div class="like d-flex align-items-center ml-1">
 				<c:choose>
-					<c:when test="${post.Like }">
+					<c:when test="${post.like }">
 						<i class="bi bi-heart-fill"></i>
 					</c:when>
 					<c:otherwise>

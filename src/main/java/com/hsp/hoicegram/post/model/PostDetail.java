@@ -7,6 +7,7 @@ public class PostDetail {
 	private String nickname;
 	private int likeCount;
 	private boolean isLike;
+	private String comment;
 	private String content;
 	private String imagePath;
 	
@@ -14,6 +15,12 @@ public class PostDetail {
 	
 	
 
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public boolean isLike() {
 		return isLike;
 	}
