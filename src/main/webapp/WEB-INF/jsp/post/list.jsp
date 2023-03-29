@@ -68,12 +68,11 @@
 			</div>
 			<div class="comment mt-4 ">
 				<div class="comment-box ml-1">
+					<c:forEach var="comment" items="${post.commentDetail }">
 					<div class="d-flex mt-2">
-						<div class="font-weight-bold">${post.nickname }</div><div class="ml-3">${post.comment }</div>
+						<div class="font-weight-bold">${comment.userNickname }</div><div class="ml-3">${comment.content }</div>
 					</div>
-					<div class="d-flex mt-2">
-						<div class="font-weight-bold">dabinnn0415</div><div class="ml-3">어딩ㅁ?</div>
-					</div>
+					</c:forEach>
 				</div>	
 				<div class="input-group mt-3">
 					  <input type="text" class="form-control col-5" id="commentInput${post.id }">

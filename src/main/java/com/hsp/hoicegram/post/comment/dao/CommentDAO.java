@@ -1,5 +1,7 @@
 package com.hsp.hoicegram.post.comment.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +15,6 @@ public interface CommentDAO {
 			, @Param("postId")int postId
 			, @Param("content") String content);
 	
-	public Comment selectComment(
-			@Param("userId") int userId
-			, @Param("postId")int postId);
+	public List<Comment> selectCommentList(@Param("postId")int postId);
 
 }

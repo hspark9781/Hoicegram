@@ -27,16 +27,18 @@
   	)
   </insert>
   
-  <select id="selectComment" parameterType="map" resultType="com.hsp.hoicegram.post.comment.model.Comment">
+  <select id="selectCommentList" parameterType="map" resultType="com.hsp.hoicegram.post.comment.model.Comment">
   	SELECT 
-  		`content`
+  		`id`
+  		, `userId`
+  		, `postId`
+  		, `content`
   		, `createdAt`
   		, `updatedAt`
   	FROM
   		`comment`
   	WHERE
   		`postId` = #{postId}
-  		AND `userId` = #{userId}
   </select>
   	
   

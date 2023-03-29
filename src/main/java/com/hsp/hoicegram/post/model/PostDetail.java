@@ -1,23 +1,30 @@
 package com.hsp.hoicegram.post.model;
 
+import java.util.List;
+
+import com.hsp.hoicegram.post.comment.model.Comment;
+import com.hsp.hoicegram.post.comment.model.CommentDetail;
+
 public class PostDetail {
 	
 	private int id;
 	private int userId;
-	private String nickname;
-	private int likeCount;
-	private boolean isLike;
-	private String comment;
+	private String nickname; // 추가
+	private int likeCount; // 추가
+	private boolean isLike; // 추가
+	private List<CommentDetail> commentDetail; // 리스트도 멤벼변수에 가능
 	private String content;
 	private String imagePath;
 	
 	
+	
 
-	public String getComment() {
-		return comment;
+	
+	public List<CommentDetail> getCommentDetail() {
+		return commentDetail;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setCommentDetail(List<CommentDetail> commentDetail) {
+		this.commentDetail = commentDetail;
 	}
 	public boolean isLike() {
 		return isLike;
