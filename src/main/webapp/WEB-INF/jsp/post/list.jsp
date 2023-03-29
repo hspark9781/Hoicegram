@@ -40,8 +40,8 @@
 					  </button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 					    <a class="dropdown-item" href="/post/create/view">게시물 작성</a>
-					    <a class="dropdown-item" href="/post/detail/view">게시물 수정</a>
-					    <button type="button" class="dropdown-item btn">삭제</button>
+					    <a class="dropdown-item" href="/post/detail/view?userId=${post.userId}&postId=${post.id}">게시물 수정</a>
+					    <button type="button" class="dropdown-item btn" id="PostDeleteBtn"data-post-id="${post.id }" data-user-id="${userId }">삭제</button>
 					  </div>
 					</div>
 				</div>
@@ -93,6 +93,27 @@
 	
 	<script>
 		$(document).ready(function() {	
+			
+			$("#PostDeleteBtn").on("click", function() {
+				let postId = $(this).data("post-id");
+				let userId = $(this).data("post-id");		
+				// modal 현재 화면에 다른 화면 보여주기
+				$.ajax({
+					type:"get"
+					, url:"/post/delete"
+					, data:{"postId":postId, "userId":userId}
+					, success(data):function() {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("해당 게시글 작성자가 아닙니다");
+						}
+					}
+					, error:function() {
+						alert("삭제 엥러")
+					}
+				});
+			});
 			
 			$(".comment-btn").on("click", function() {
 				let postId = $(this).data("post-id");

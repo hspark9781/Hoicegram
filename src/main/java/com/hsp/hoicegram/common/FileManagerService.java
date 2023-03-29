@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagerService {
@@ -15,6 +17,8 @@ public class FileManagerService {
 	// "/Users/hsp9781/web_hsp/spring_project/upload/hoicegram/images"
 	// "/Users/hsp9781/web_hsp/spring_project/upload/memo/images"
 	// "D:\\web_hsp\\spring_project\\upload\\hoicegram\\images"
+	
+	private static Logger logger = LoggerFactory.getLogger(FileManagerService.class);
 	
 	//파일 저장 -> 경로 생성
 	
@@ -36,6 +40,7 @@ public class FileManagerService {
 		File directory = new File(directoryPath);
 		if(!directory.mkdir()) {
 			// 디렉토리 생성 실패
+			logger.error("saveFile : 디렉토리 생성 실패 " + directoryPath);
 			return null;
 		}
 		
@@ -50,7 +55,7 @@ public class FileManagerService {
 			
 			
 		} catch (IOException e) {
-			
+			logger.error("saveFile : 파일 저장 실패 " + directoryPath);
 			e.printStackTrace();
 			
 			return null;
@@ -61,6 +66,50 @@ public class FileManagerService {
 		// http://localhost:8080/images/2_39i980139/test.png
 		
 		return "/images" + directoryName + file.getOriginalFilename();
+	}
+	
+	
+	// 파일 삭제 기능
+	public static boolean removeFile(String filePath) {
+		
+		if(filePath == null) {
+			logger.info("삭제 대상 파일 없음");
+			return false;
+		}
+		// 실제 파일 저장 경로 찾기
+		// images를 제거하고, 나머지 부분을 FILE_UPLOAD_PATH에 이어 붙인다.
+		
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		Path path = Paths.get(fullFilePath);
+		
+		// 파일이 존재하는지 여부
+		if(Files.exists(path)) {
+			
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				
+				logger.error("removeFile : 파일 삭제 에러 " + fullFilePath);
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		// 디렉토리 제거
+		Path dirPath = path.getParent();
+		
+		if(Files.exists(dirPath)) {
+			try {
+				Files.delete(dirPath);
+			} catch (IOException e) {
+				logger.error("removeFile : 디렉토리 삭제 에러 " + fullFilePath);
+				e.printStackTrace();
+				
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }

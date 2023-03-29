@@ -37,6 +37,10 @@ public class PostBO {
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
+	public Post selectPost(int userId, int postId) {
+		return postDAO.selectPost(postId, userId);
+	}
+	
 	public List<PostDetail> getPostList(int userId) {
 		
 		
@@ -47,6 +51,8 @@ public class PostBO {
 		
 		// 한 카드 박스안에 포스트 뿐만 아니라 작성자, 댓글, 좋아요의 기능이 필요할때
 		List<PostDetail> postDetailList = new ArrayList<>();
+		
+		
 		
 		
 		
@@ -80,6 +86,17 @@ public class PostBO {
 		
 		
 	}
+	
+	
+	public int deletePost(int userId, int postId) {
+		Post post = postDAO.selectPost(postId, userId);
+		FileManagerService.removeFile(post.getImagePath());
+		
+		return postDAO.deletePost(userId, postId);
+	}
+		
+	
+
 			
 			
 

@@ -40,11 +40,14 @@
 		<div class="mt-5">
 			<h3 class="font-weight-light">게시물 수정</h3>
 			<div class="mt-3">
-				<textarea rows="10" class="form-control"></textarea>
+				<textarea rows="10" class="form-control">${post.content }</textarea>
+			</div>
+			<div>
+				<img alt="이미지" src="${post.imagePath }">
 			</div>
 			<input type="file" class="btn p-0 mt-3">	
 			<div class="d-flex justify-content-between mt-3">
-				<button class="btn btn-danger">삭제</button>
+				<button class="btn btn-danger" data-post-id="${post.id }">삭제</button>
 				<button class="btn btn-primary">저장</button>
 			</div>
 		</div>

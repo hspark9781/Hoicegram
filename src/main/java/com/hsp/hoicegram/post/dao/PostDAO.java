@@ -17,6 +17,16 @@ public interface PostDAO {
 	
 	public List<Post> selectPostList();
 	
+	public Post selectPost(
+			@Param("id") int id
+			, @Param("userId") int userId);
+	
 	public String selectNickname(int userId);
+	
+	public int deletePost(
+			@Param("userId") int userId
+			, @Param("id") int id);
+	
+	
 
 }

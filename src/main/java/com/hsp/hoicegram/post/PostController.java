@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hsp.hoicegram.post.bo.PostBO;
+import com.hsp.hoicegram.post.model.Post;
 import com.hsp.hoicegram.post.model.PostDetail;
 
 @Controller
@@ -43,8 +45,20 @@ public class PostController {
 	}
 	
 	@GetMapping("/detail/view")
-	public String detail() {
+	public String detail(
+			@RequestParam("postId") int postId
+			, HttpSession session
+			, Model model) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Post post = postBO.selectPost(userId, postId);
+		
+		model.addAttribute("post", post);
+		
 		return "post/detail";
 	}
+	
+	
 	
 }
