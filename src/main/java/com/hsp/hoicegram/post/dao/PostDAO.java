@@ -21,7 +21,6 @@ public interface PostDAO {
 			@Param("id") int id
 			, @Param("userId") int userId);
 	
-	public String selectNickname(int userId);
 	
 	public int deletePost(
 			@Param("userId") int userId

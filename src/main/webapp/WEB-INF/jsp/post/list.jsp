@@ -20,30 +20,28 @@
 	<div id="wrap">
 		<header class="d-flex justify-content-between align-items-end">
 			<c:if test="${not empty userId }">
-			<div class="ml-3">
+			<div class=" d-flex justify-content-start ml-3">
 					<h4 class=" font-weight-light ml-1" id="userId" data-user-id="${userId }">${nickname }</h4>
+			</div>										
+			<div class="d-flex mr-1"> 
+				<a class="btn btn-primary" href="/post/create/view">게시물 작성</a>
+				<a href="/user/signout" class="ml-2 btn btn-dark text-light">logout</a> 
 			</div>
-			<div class="mr-1"> <a href="/user/signout" class="btn btn-dark text-light">logout</a> </div>
 			</c:if>
 		</header>					
 		<section class="contents">
 		<c:forEach var="post" items="${postList }">
 		<div class="card-box border rounded mt-3">
 			<div class="d-flex justify-content-between align-items-end">
-				<div class="ml-3">
+				<div class="ml-3 mt-3">
 					<h4 class=" font-weight-light ml-1">${post.nickname }</h4>
 				</div>
 				<div class="menu mt-3 mr-2">
-					<div class="dropdown">
-					  <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  <c:if test="${userId eq post.userId }">
+					  <button class="btn menu-btn" type="button" data-toggle="modal" data-target="#menuBtn" data-post-id="${post.id }">
 					    <i class="bi bi-three-dots"></i>
 					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					    <a class="dropdown-item" href="/post/create/view">게시물 작성</a>
-					    <a class="dropdown-item" href="/post/detail/view?userId=${post.userId}&postId=${post.id}">게시물 수정</a>
-					    <button type="button" class="dropdown-item btn" id="postDeleteBtn"data-post-id="${post.id }" data-user-id="${post.userId }">삭제</button>
-					  </div>
-					</div>
+					  </c:if>
 				</div>
 			</div>
 			<c:if test="${not empty post.imagePath }">
@@ -90,30 +88,54 @@
 		</footer>		
 	</div>
 	
+
+	<div class="modal fade" id="menuBtn" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-body text-center"> 	
+				<a class="btn btn-primary btn-block" href="/post/detail/view?userId=${post.userId}&postId=${post.id}">게시물 수정</a>
+				<button type="button" id="deleteBtn" class="btn btn-danger btn-block postDeleteBtn">
+					삭제
+				</button>
+			</div>  
+	    </div>
+	  </div>
+	</div>
+
+
+	
 	
 	<script>
 		$(document).ready(function() {	
 			
-			$("#postDeleteBtn").on("click", function() {
+			$("#deleteBtn").on("click", function() {
+				
 				let postId = $(this).data("post-id");
-				let userId = $(this).data("user-id");
 				
 				$.ajax({
-					type:"get"
+					type:"get"	
 					, url:"/post/delete"
 					, data:{"postId":postId}
 					, success:function(data) {
 						if(data.result == "success") {
 							location.reload();
 						} else {
-							alert("해당 작성자만 삭제 가능합니다.");
+							alert("삭제 실패");
 						}
 					}
-					,error:function() {
+					, error:function() {
 						alert("삭제 에러");
 					}
 				});
+				
 			});
+			
+			$(".menu-btn").on("click", function() {
+				let postId = $(this).data("post-id");
+				
+				$("#deleteBtn").data("post-id", postId);
+			});
+				
 			
 			
 			$(".comment-btn").on("click", function() {
