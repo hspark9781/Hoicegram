@@ -42,9 +42,11 @@
 			<div class="mt-3">
 				<textarea rows="10" class="form-control">${post.content }</textarea>
 			</div>
+			<c:if test="${not empty post.imagePath }">
 			<div>
 				<img alt="이미지" src="${post.imagePath }">
 			</div>
+			</c:if>
 			<input type="file" class="btn p-0 mt-3">	
 			<div class="d-flex justify-content-between mt-3">
 				<button class="btn btn-danger" data-post-id="${post.id }">삭제</button>

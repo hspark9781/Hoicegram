@@ -90,7 +90,11 @@ public class PostBO {
 	
 	public int deletePost(int userId, int postId) {
 		Post post = postDAO.selectPost(postId, userId);
-		FileManagerService.removeFile(post.getImagePath());
+			
+			FileManagerService.removeFile(post.getImagePath());
+		
+		likeBO.deleteLikeByPostId(postId);
+		commentBO.deleteCommentByPostId(postId);
 		
 		return postDAO.deletePost(userId, postId);
 	}

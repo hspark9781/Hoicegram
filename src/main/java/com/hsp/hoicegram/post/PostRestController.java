@@ -60,12 +60,9 @@ public class PostRestController {
 		} else {
 			resultMap.put("result", "fail");
 		}
-		
+
 		return resultMap;
-		
 	}
-	
-	
 	
 	
 	
