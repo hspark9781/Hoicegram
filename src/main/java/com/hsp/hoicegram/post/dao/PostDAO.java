@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hsp.hoicegram.post.model.Post;
 
@@ -17,6 +18,8 @@ public interface PostDAO {
 	
 	public List<Post> selectPostList();
 	
+	public Post selectPostByPostId(@Param("id") int id);
+	
 	public Post selectPost(
 			@Param("id") int id
 			, @Param("userId") int userId);
@@ -26,6 +29,10 @@ public interface PostDAO {
 			@Param("userId") int userId
 			, @Param("id") int id);
 	
+	public int updatePost(
+			@Param("id") int id
+			, @Param("content") String content
+			, @Param("imagePath") String imagePath);
 	
 
 }

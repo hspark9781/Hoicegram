@@ -31,7 +31,6 @@
 			    Post menu
 			  </button>
 			  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-			    <a class="dropdown-item" href="/post/detail/view">게시물 수정</a>
 			    <a class="dropdown-item" href="/post/timeline/view">Timeline</a>
 			  </div>
 			</div>
@@ -41,7 +40,7 @@
 			<h3 class="font-weight-light">게시물 작성</h3>
 			<div class="border rounded">
 				<div class="mt-3">
-					<textarea rows="10" class="form-control border-0" id="contentInput"></textarea>
+					<textarea rows="10" placeholder="내용을 입력하세요." class="form-control border-0" id="contentInput"></textarea>
 				</div>			
 				<div class="d-flex justify-content-between mt-3">
 					<i id="imageIcon" class="bi bi-card-image image-icon ml-2"></i> <!-- 크기 : font-size로 -->				

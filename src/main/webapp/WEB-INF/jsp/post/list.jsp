@@ -38,7 +38,7 @@
 				</div>
 				<div class="menu mt-3 mr-2">
 					  <c:if test="${userId eq post.userId }">
-					  <button class="btn menu-btn" type="button" data-toggle="modal" data-target="#menuBtn" data-post-id="${post.id }">
+					  <button class="btn menu-btn" type="button" data-toggle="modal" data-target="#menuBtn" data-post-id="${post.id }" data-user-id="${post.userId }">
 					    <i class="bi bi-three-dots"></i>
 					  </button>
 					  </c:if>
@@ -93,7 +93,7 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	    	<div class="modal-body text-center"> 	
-				<a class="btn btn-primary btn-block" href="/post/detail/view?userId=${post.userId}&postId=${post.id}">게시물 수정</a>
+				<button type="button" id="detailBtn" class="btn btn-primary btn-block">게시물 수정</button>
 				<button type="button" id="deleteBtn" class="btn btn-danger btn-block postDeleteBtn">
 					삭제
 				</button>
@@ -107,6 +107,12 @@
 	
 	<script>
 		$(document).ready(function() {	
+			
+			$("#detailBtn").on("click", function() {
+				let postId = $(this).data("post-id");
+				let userId	= $(this).data("user-id");
+				location.href="/post/detail/view?postId=" + postId + "&userId=" + userId;
+			});
 			
 			$("#deleteBtn").on("click", function() {
 				
@@ -132,8 +138,11 @@
 			
 			$(".menu-btn").on("click", function() {
 				let postId = $(this).data("post-id");
+				let userId = $(this).data("user-id");
 				
 				$("#deleteBtn").data("post-id", postId);
+				$("#detailBtn").data("post-id", postId);
+				$("#detailBtn").data("user-id", userId);
 			});
 				
 			

@@ -55,6 +55,22 @@
   			AND `userId` = #{userId}
   	</select>
   	
+  	<select id="selectPostByPostId" parameterType="int" resultType="com.hsp.hoicegram.post.model.Post">
+  		SELECT 
+  			`id`
+  			, `userId`
+  			, `content`
+  			, `imagePath`
+  			, `createdAt`
+  			, `updatedAt`
+  		FROM 
+  			`post`
+  		WHERE
+  			`id` = #{id}
+  	</select>
+  	
+  	
+  	
   	<delete id="deletePost" parameterType="map">
   		DELETE FROM
   			`post`
@@ -62,6 +78,16 @@
   			`id` = #{id}
   			AND `userId` = #{userId}
   	</delete>
+  	
+  	<update id="updatePost" parameterType="map">
+  		UPDATE
+  			`post`
+  		SET
+  			`content` = #{content}
+  			, `imagePath` = #{imagePath}
+  		WHERE
+  			`id` = #{id}
+  	</update>
   	
   	
   	

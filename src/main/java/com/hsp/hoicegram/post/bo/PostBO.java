@@ -41,6 +41,10 @@ public class PostBO {
 		return postDAO.selectPost(postId, userId);
 	}
 	
+	public Post selectPostByPostId(int postId) {
+		return postDAO.selectPostByPostId(postId);
+	}
+	
 	public List<PostDetail> getPostList(int userId) {
 		
 		
@@ -104,6 +108,30 @@ public class PostBO {
 		}
 		
 	}
+	
+	public int updatePost(int postId, int userId, String content, MultipartFile file) {
+		
+		Post post = postDAO.selectPostByPostId(postId);
+		
+		String imagePath = FileManagerService.saveFile(userId, file);
+		
+		if(post.getImagePath() != null && file != null) { // 변경할 이미지와 기존 이미지가 둘다 있을 때
+			FileManagerService.removeFile(post.getImagePath());
+			return postDAO.updatePost(postId, content, imagePath);
+		} else if(post.getImagePath() == null && file != null) { // 기존 이미지는 없고 변경할 이미지가 있을 때
+			return postDAO.updatePost(postId, content, imagePath);
+		} else { 												// 변경할 이미지와 기존 이미지가 없을 때 => imagePath = null, 또는 변경할 이미지가 없고 기존 이미지만 있을 때
+			return postDAO.updatePost(postId, content, post.getImagePath());
+		}
+		
+	}
+		
+		
+		
+		
+		
+		
+		
 		
 	
 
